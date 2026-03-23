@@ -108,11 +108,15 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .mc-meta{font-size:15px;color:var(--g5);margin-bottom:14px}
 .mc-meta svg{vertical-align:middle;margin-right:4px}
 .mc-extras{display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.mc-instrs{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .mc-instr{display:flex;align-items:center;gap:10px}
 .mc-av{width:36px;height:36px;border-radius:50%;background:var(--p0);border:2px solid var(--p1);display:flex;align-items:center;justify-content:center;color:var(--p5);font-size:12px;font-weight:700;overflow:hidden}
 .mc-av img{width:100%;height:100%;object-fit:cover}
 .mc-iname{font-size:14px;color:var(--g7);font-weight:500}
 .mc-irole{font-size:12px;color:var(--g4)}
+.mc-plan-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ok);background:var(--ok0);padding:5px 14px;border-radius:20px}
+.mc-dash-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--p6);background:var(--p0);padding:6px 14px;border-radius:10px;border:1px solid var(--p1);cursor:pointer;transition:all .2s;text-decoration:none}
+.mc-dash-link:hover{background:var(--p1)}
 .mc-cert{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--warn);background:#FEF3C7;padding:4px 12px;border-radius:20px}
 .mc-price-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--p6);background:var(--p0);padding:6px 14px;border-radius:10px;border:1px solid var(--p1);cursor:pointer;transition:all .2s}
 .mc-price-tag:hover{background:var(--p1)}
@@ -158,13 +162,15 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .mod-n.dn{background:var(--ok0);color:var(--ok)}
 .mod-nm{flex:1}.mod-d{color:var(--g4);font-size:13px}
 
-/* INSTRUCTOR */
-.instr{background:var(--g0);border:1px solid var(--g2);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:48px 0 32px}
-.instr-l{display:flex;align-items:center;gap:16px}
-.instr-av{width:56px;height:56px;border-radius:50%;background:var(--p0);color:var(--p5);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.instr-nm{font-size:18px;font-weight:600;color:var(--g9)}.instr-tt{font-size:13px;color:var(--g4)}
-.instr-r{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--g5)}
-.stars{color:var(--warn);font-size:15px;letter-spacing:1px}
+/* INSTRUCTORS */
+.instr-section{margin:48px 0 32px}
+.instr-section h3{font-size:22px;font-weight:700;color:var(--g9);margin-bottom:20px}
+.instr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.instr-card{background:var(--g0);border:1px solid var(--g2);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:16px}
+.instr-av{width:56px;height:56px;min-width:56px;border-radius:50%;background:var(--p0);color:var(--p5);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.instr-nm{font-size:16px;font-weight:600;color:var(--g9)}.instr-tt{font-size:13px;color:var(--g4);margin-top:2px}
+.instr-stats{font-size:12px;color:var(--g5);margin-top:4px;display:flex;align-items:center;gap:8px}
+.stars{color:var(--warn);font-size:13px;letter-spacing:1px}
 .rat{font-weight:700;color:var(--g9)}
 
 /* CTA */
@@ -338,17 +344,10 @@ body.level-purchase .v-access{display:block!important}
     <div class="cards-wrap" id="cw"></div>
   </section>
 
-  <!-- INSTRUCTOR -->
-  <section class="instr">
-    <div class="instr-l">
-      <div class="instr-av">MB</div>
-      <div><div class="instr-nm">Milan Bavishi</div><div class="instr-tt">Market technician &middot; 12 years experience</div></div>
-    </div>
-    <div class="instr-r">
-      <span>Trusted by 2,00,000+ learners</span>
-      <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span class="rat">4.8</span>
-    </div>
+  <!-- INSTRUCTORS -->
+  <section class="instr-section">
+    <h3>Your Mentors</h3>
+    <div class="instr-grid" id="instrGrid"></div>
   </section>
 
   <!-- CTA (guest only) -->
@@ -383,48 +382,58 @@ const IMGS = [
 ];
 
 const LEVEL_PRICES = [299, 399, 449, 399, 349];
+const COURSE_URL = 'https://upstox.com/uplearn/courses/pre-recorded-options-trading-course-10-june/';
+
+// Mentors pool — each level gets 2-3 mentors
+const MENTORS = [
+  {ini:"MB",name:"Milan Bavishi",role:"Market Technician, CMT",rating:4.8,learners:"2,00,000+"},
+  {ini:"RK",name:"Rachit Khanna",role:"Options Strategist",rating:4.7,learners:"85,000+"},
+  {ini:"SP",name:"Sneha Patel",role:"Equity Analyst, CFA",rating:4.9,learners:"1,20,000+"},
+  {ini:"AJ",name:"Arjun Joshi",role:"Derivatives Trader",rating:4.6,learners:"60,000+"},
+  {ini:"VR",name:"Vikram Rao",role:"Quantitative Analyst",rating:4.8,learners:"95,000+"},
+  {ini:"PD",name:"Priya Desai",role:"Technical Analyst, CMT",rating:4.7,learners:"75,000+"}
+];
 
 const D=[
-  {name:"Reading the Market",lvl:"Beginner",hrs:"8 hrs",cnt:3,img:IMGS[0],price:LEVEL_PRICES[0],
+  {name:"Reading the Market",lvl:"Beginner",hrs:"8 hrs",cnt:3,img:IMGS[0],price:LEVEL_PRICES[0],mentors:[0,2],
    learn:["Different types of price charts","How candlesticks are formed","Identifying key support & resistance","Reading volume to confirm moves","Spotting market structure shifts"],
    courses:[
-     {id:1,nm:"Candlesticks & Chart Types",hrs:"2.5 hrs",st:"free",sub:"5 modules \u00b7 Free to start",mods:["What is Technical Analysis?","Types of price charts","Anatomy of a candlestick","Bullish vs bearish candles","Reading chart timeframes"]},
-     {id:2,nm:"Support, Resistance & Trends",hrs:"2.5 hrs",st:"locked",sub:"Unlock after Course 1",mods:["Drawing support zones","Drawing resistance zones","Trendlines & channels","Breakout vs fakeout","Real chart walkthroughs"]},
-     {id:3,nm:"Volume & Market Structure",hrs:"3 hrs",st:"locked",sub:"Unlock after Course 2",mods:["Why volume matters","Volume spikes & climax","Market structure basics","Higher highs & lower lows","Putting it all together"]}
+     {id:1,nm:"Candlesticks & Chart Types",hrs:"2.5 hrs",sub:"5 modules \u00b7 Free to start",mods:["What is Technical Analysis?","Types of price charts","Anatomy of a candlestick","Bullish vs bearish candles","Reading chart timeframes"]},
+     {id:2,nm:"Support, Resistance & Trends",hrs:"2.5 hrs",sub:"Unlock after Course 1",mods:["Drawing support zones","Drawing resistance zones","Trendlines & channels","Breakout vs fakeout","Real chart walkthroughs"]},
+     {id:3,nm:"Volume & Market Structure",hrs:"3 hrs",sub:"Unlock after Course 2",mods:["Why volume matters","Volume spikes & climax","Market structure basics","Higher highs & lower lows","Putting it all together"]}
    ]},
-  {name:"Chart Patterns",lvl:"Intermediate",hrs:"9 hrs",cnt:3,img:IMGS[1],price:LEVEL_PRICES[1],
+  {name:"Chart Patterns",lvl:"Intermediate",hrs:"9 hrs",cnt:3,img:IMGS[1],price:LEVEL_PRICES[1],mentors:[0,1],
    learn:["Head & shoulders reversal signals","Double tops and double bottoms","Trading flags, pennants and wedges","Candlestick pattern psychology","Entry, exit and stop-loss placement"],
    courses:[
-     {id:4,nm:"Reversal Patterns",hrs:"3 hrs",st:"free",sub:"3 modules \u00b7 Free to start",mods:["Head & shoulders","Inverse head & shoulders","Double top","Double bottom","Rounding bottom"]},
-     {id:5,nm:"Continuation Patterns",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Bull flags","Bear flags","Pennants","Ascending triangles","Symmetrical triangles"]},
-     {id:6,nm:"Candlestick Pattern Setups",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Hammer & hanging man","Engulfing patterns","Doji variations","Morning & evening star","Trading setups with candles"]}
+     {id:4,nm:"Reversal Patterns",hrs:"3 hrs",sub:"5 modules \u00b7 Free to start",mods:["Head & shoulders","Inverse head & shoulders","Double top","Double bottom","Rounding bottom"]},
+     {id:5,nm:"Continuation Patterns",hrs:"3 hrs",sub:"Locked",mods:["Bull flags","Bear flags","Pennants","Ascending triangles","Symmetrical triangles"]},
+     {id:6,nm:"Candlestick Pattern Setups",hrs:"3 hrs",sub:"Locked",mods:["Hammer & hanging man","Engulfing patterns","Doji variations","Morning & evening star","Trading setups with candles"]}
    ]},
-  {name:"Indicators & Oscillators",lvl:"Intermediate",hrs:"10 hrs",cnt:3,img:IMGS[2],price:LEVEL_PRICES[2],
+  {name:"Indicators & Oscillators",lvl:"Intermediate",hrs:"10 hrs",cnt:3,img:IMGS[2],price:LEVEL_PRICES[2],mentors:[0,4,5],
    learn:["Plotting and using moving averages","How RSI measures momentum","MACD crossover strategies","Bollinger Bands for volatility","Combining indicators for confirmation"],
    courses:[
-     {id:7,nm:"Moving Averages: SMA, EMA, WMA",hrs:"3.5 hrs",st:"free",sub:"5 modules \u00b7 Free to start",mods:["Simple moving average","Exponential moving average","Weighted MA","Crossover strategies","MA as dynamic support/resistance"]},
-     {id:8,nm:"RSI & MACD in Depth",hrs:"3.5 hrs",st:"locked",sub:"Locked",mods:["RSI calculation & zones","RSI divergence","MACD histogram","Signal line crossovers","Combining RSI + MACD"]},
-     {id:9,nm:"Bollinger Bands & ATR",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Bollinger Band basics","Squeeze strategy","Band walks","ATR for volatility","Position sizing with ATR"]}
+     {id:7,nm:"Moving Averages: SMA, EMA, WMA",hrs:"3.5 hrs",sub:"5 modules \u00b7 Free to start",mods:["Simple moving average","Exponential moving average","Weighted MA","Crossover strategies","MA as dynamic support/resistance"]},
+     {id:8,nm:"RSI & MACD in Depth",hrs:"3.5 hrs",sub:"Locked",mods:["RSI calculation & zones","RSI divergence","MACD histogram","Signal line crossovers","Combining RSI + MACD"]},
+     {id:9,nm:"Bollinger Bands & ATR",hrs:"3 hrs",sub:"Locked",mods:["Bollinger Band basics","Squeeze strategy","Band walks","ATR for volatility","Position sizing with ATR"]}
    ]},
-  {name:"Trading Systems & Strategy",lvl:"Advanced",hrs:"8 hrs",cnt:3,img:IMGS[3],price:LEVEL_PRICES[3],
+  {name:"Trading Systems & Strategy",lvl:"Advanced",hrs:"8 hrs",cnt:3,img:IMGS[3],price:LEVEL_PRICES[3],mentors:[3,1],
    learn:["Building a rule-based trading system","Backtesting strategies on historical data","Position sizing and risk management","Creating trade checklists","Managing trades with trailing stops"],
    courses:[
-     {id:10,nm:"Building a Rule-Based System",hrs:"3 hrs",st:"free",sub:"5 modules \u00b7 Free to start",mods:["Why rules matter","Defining entry criteria","Defining exit criteria","Journaling trades","Your first system"]},
-     {id:11,nm:"Backtesting on Real Charts",hrs:"2.5 hrs",st:"locked",sub:"Locked",mods:["What is backtesting?","Manual backtesting method","Tracking win rate","Expectancy calculation","Iterating your system"]},
-     {id:12,nm:"Risk & Position Sizing",hrs:"2.5 hrs",st:"locked",sub:"Locked",mods:["Risk per trade","Position sizing formulas","Risk-reward ratio","Portfolio heat","Protecting capital"]}
+     {id:10,nm:"Building a Rule-Based System",hrs:"3 hrs",sub:"5 modules \u00b7 Free to start",mods:["Why rules matter","Defining entry criteria","Defining exit criteria","Journaling trades","Your first system"]},
+     {id:11,nm:"Backtesting on Real Charts",hrs:"2.5 hrs",sub:"Locked",mods:["What is backtesting?","Manual backtesting method","Tracking win rate","Expectancy calculation","Iterating your system"]},
+     {id:12,nm:"Risk & Position Sizing",hrs:"2.5 hrs",sub:"Locked",mods:["Risk per trade","Position sizing formulas","Risk-reward ratio","Portfolio heat","Protecting capital"]}
    ]},
-  {name:"Live Market Application",lvl:"Expert",hrs:"6 hrs",cnt:2,img:IMGS[4],price:LEVEL_PRICES[4],
+  {name:"Live Market Application",lvl:"Expert",hrs:"6 hrs",cnt:2,img:IMGS[4],price:LEVEL_PRICES[4],mentors:[0,3,5],
    learn:["Reading intraday price action live","How news & macro events affect charts","Building a pre-market routine","Adapting strategy to conditions"],
    courses:[
-     {id:13,nm:"Reading Intraday Price Action",hrs:"3 hrs",st:"free",sub:"2 modules \u00b7 Free to start",mods:["Opening range breakout","VWAP trading","Intraday S/R levels","Scalping setups","End-of-day review"]},
-     {id:14,nm:"TA Meets Macro: News & Events",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Earnings season trading","RBI policy impact","Global cues & gaps","Event-driven setups","Putting it all together"]}
+     {id:13,nm:"Reading Intraday Price Action",hrs:"3 hrs",sub:"2 modules \u00b7 Free to start",mods:["Opening range breakout","VWAP trading","Intraday S/R levels","Scalping setups","End-of-day review"]},
+     {id:14,nm:"TA Meets Macro: News & Events",hrs:"3 hrs",sub:"Locked",mods:["Earnings season trading","RBI policy impact","Global cues & gaps","Event-driven setups","Putting it all together"]}
    ]}
 ];
 
 // State
-let viewMode='guest'; // 'guest' | 'enrolled' | 'level'
-let done=new Set();
-let purchasedLevels=new Set([0,1]); // dummy: levels 0,1 purchased for level-purchase view
+let viewMode='guest';
+let purchasedLevels=new Set([0,1]);
 let openB=0, openC=-1;
 
 function setView(mode){
@@ -437,111 +446,109 @@ function setView(mode){
   if(mode==='enrolled'){
     document.body.classList.add('enrolled');
     document.getElementById('togEnrolled').classList.add('active');
-    done=new Set([1,2,3]);
   } else if(mode==='level'){
     document.body.classList.add('level-purchase');
     document.getElementById('togLevel').classList.add('active');
-    done=new Set([1,2,3]);
     purchasedLevels=new Set([0,1]);
-    // Update hero text
     const names=[];
     purchasedLevels.forEach(i=>names.push('Level '+(i+1)));
     document.getElementById('purchasedLevelsText').textContent=names.join(' & ');
   } else {
     document.getElementById('togGuest').classList.add('active');
-    done=new Set();
   }
   openC=-1;
   render();
 }
 
+// Course state: no more "completed" — just free, active, locked
 function cs(c,bi){
+  const b=D[bi], ci=b.courses.indexOf(c);
   if(viewMode==='guest'){
-    // first course of each bucket is free
-    const b=D[bi], ci=b.courses.indexOf(c);
     return ci===0?'free':'locked';
   }
   if(viewMode==='level'){
     if(!purchasedLevels.has(bi)){
-      // not purchased — first course free, rest locked
-      const b=D[bi], ci=b.courses.indexOf(c);
       return ci===0?'free':'locked';
     }
-    // purchased level
-    if(done.has(c.id)) return 'completed';
-    const b=D[bi], ci=b.courses.indexOf(c);
-    const prev=ci===0?true:done.has(b.courses[ci-1].id);
-    return prev?'active':'locked';
+    // purchased level — all courses are active
+    return 'active';
   }
-  // enrolled (full packet)
-  if(done.has(c.id)) return 'completed';
-  const b=D[bi], ci=b.courses.indexOf(c);
-  const prev=ci===0?(bi===0||D[bi-1].courses.every(x=>done.has(x.id))):done.has(b.courses[ci-1].id);
-  return prev?'active':'locked';
+  // enrolled (full packet) — all courses active
+  return 'active';
 }
 
 function bs(bi){
-  if(viewMode==='guest'){
-    return 'free'; // all levels show as explorable with first course free
-  }
+  if(viewMode==='guest') return 'free';
   if(viewMode==='level'){
-    if(!purchasedLevels.has(bi)) return 'locked';
-    const b=D[bi];
-    if(b.courses.every(c=>done.has(c.id))) return 'completed';
-    if(b.courses.some(c=>cs(c,bi)==='active'||cs(c,bi)==='completed')) return 'active';
-    return 'purchased';
+    return purchasedLevels.has(bi)?'active':'locked';
   }
-  // enrolled
-  const b=D[bi];
-  if(b.courses.every(c=>done.has(c.id))) return 'completed';
-  if(b.courses.some(c=>cs(c,bi)==='active'||cs(c,bi)==='completed')) return 'active';
-  return 'locked';
+  // enrolled — all active
+  return 'active';
 }
 
 function bl(s){
   if(s==='free') return '1 Free';
-  if(s==='active') return 'In Progress';
-  if(s==='completed') return 'Completed';
-  if(s==='purchased') return 'Purchased';
+  if(s==='active') return 'Active';
   return 'Locked';
 }
-function tl(s){return s==='free'?'Free':s==='active'?'Continue \u2192':s==='completed'?'Done':'Locked'}
-function tc(s){return s==='active'?'ac':s==='completed'?'done':s==='free'?'free':'lk'}
-function ic(s){return s==='active'?'ac':s==='completed'?'done':s==='free'?'free':'lk'}
+function tl(s){return s==='free'?'Free':s==='active'?'Start \u2192':'Locked'}
+function tc(s){return s==='active'?'ac':s==='free'?'free':'lk'}
+function ic(s){return s==='active'?'ac':s==='free'?'free':'lk'}
 function iv(s){
   if(s==='free'||s==='active') return '<svg width="16" height="16" viewBox="0 0 18 18" fill="none"><polygon points="5,2 16,9 5,16" fill="currentColor"/></svg>';
-  if(s==='completed') return '<span style="font-weight:700;font-size:14px">&#10003;</span>';
   return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>';
 }
 function st(c,s){
   if(s==='free') return c.mods.length+' modules \u00b7 Free to start';
-  if(s==='active') return c.mods.length+' modules \u00b7 In progress';
-  if(s==='completed') return c.mods.length+' modules \u00b7 Completed';
+  if(s==='active') return c.mods.length+' modules';
   return c.sub;
+}
+
+function renderMentors(mentorIdxs){
+  let h='<div class="mc-instrs">';
+  mentorIdxs.forEach(mi=>{
+    const m=MENTORS[mi];
+    h+='<div class="mc-instr"><div class="mc-av">'+m.ini+'</div><div><div class="mc-iname">'+m.name+'</div><div class="mc-irole">'+m.role+'</div></div></div>';
+  });
+  h+='</div>';
+  return h;
 }
 
 function render(){
   const el=document.getElementById('cw'); let h='';
   D.forEach((b,bi)=>{
     const bst=bs(bi), isO=bi===openB;
-    const wc=bst==='active'||bst==='free'||bst==='purchased'?'is-a':bst==='completed'?'is-c':'';
+    const wc=bst==='active'||bst==='free'?'is-a':'';
     h+='<div class="mc-wrap '+wc+'">';
     h+='<div class="sn">'+(bi+1)+'</div><div class="tl-d"></div>';
-    h+='<div class="mc'+(isO?' open':'')+(bst==='active'||bst==='free'||bst==='purchased'?' is-ac':'')+'">';
+    h+='<div class="mc'+(isO?' open':'')+(bst==='active'||bst==='free'?' is-ac':'')+'">';
     h+='<div class="mc-hd" onclick="togB('+bi+')">';
     h+='<div class="mc-l">';
     h+='<img class="mc-thumb" src="'+b.img+'" alt="'+b.name+'">';
     h+='<div class="mc-info">';
     h+='<div class="mc-trow"><span class="mc-name">'+b.name+'</span><span class="mc-badge '+bst+'">'+bl(bst)+'</span></div>';
     h+='<div class="mc-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> '+b.cnt+' courses &middot; '+b.hrs+' &middot; '+b.lvl+'</div>';
+    // Mentors row
+    h+=renderMentors(b.mentors);
     h+='<div class="mc-extras">';
-    h+='<div class="mc-instr"><div class="mc-av">MB</div><div><div class="mc-iname">Milan Bavishi</div><div class="mc-irole">Market Technician, CMT</div></div></div>';
     h+='<div class="mc-cert"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-3 3 1-4-3-3h4L12 7l1 4h4l-3 3 1 4z"/></svg> Certificate</div>';
-    // Show price tag for guest view or unpurchased levels in level-purchase view
+    // Guest: show price
     if(viewMode==='guest'){
       h+='<span class="mc-price-tag">\u20B9'+b.price+' &middot; Buy this level</span>';
-    } else if(viewMode==='level' && !purchasedLevels.has(bi)){
-      h+='<span class="mc-price-tag" onclick="buyLevel(event,'+bi+')">\u20B9'+b.price+' &middot; Buy this level</span>';
+    }
+    // Level purchase: show "Included in plan" + dashboard link OR buy price
+    else if(viewMode==='level'){
+      if(purchasedLevels.has(bi)){
+        h+='<span class="mc-plan-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Included in plan</span>';
+        h+='<a href="'+COURSE_URL+'" target="_blank" class="mc-dash-link" onclick="event.stopPropagation()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Go to Dashboard</a>';
+      } else {
+        h+='<span class="mc-price-tag" onclick="buyLevel(event,'+bi+')">\u20B9'+b.price+' &middot; Buy this level</span>';
+      }
+    }
+    // Enrolled: show "Included in plan" + dashboard link
+    else if(viewMode==='enrolled'){
+      h+='<span class="mc-plan-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Included in plan</span>';
+      h+='<a href="'+COURSE_URL+'" target="_blank" class="mc-dash-link" onclick="event.stopPropagation()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Go to Dashboard</a>';
     }
     h+='</div></div></div>';
     h+='<div class="mc-r"><div class="mc-wyl">What you\'ll learn</div><ul class="mc-ll">';
@@ -556,42 +563,47 @@ function render(){
       h+='<div class="cd-ic '+ic(s)+'">'+iv(s)+'</div>';
       h+='<div class="cd-nfo"><div class="cd-nm'+(s==='locked'?' lk':'')+'">'+c.nm+'</div><div class="cd-sub">'+st(c,s)+'</div></div>';
       h+='<div class="cd-rt"><span class="cd-tag '+tc(s)+'">'+tl(s)+'</span><span class="cd-dur">'+c.hrs+'</span>';
-      if((viewMode==='enrolled'||viewMode==='level')&&s==='active') h+='<button class="mk-btn" onclick="mkDone(event,'+c.id+')">Mark complete</button>';
       h+='</div></div>';
       h+='<div class="mod-list'+(openC===c.id?' show':'')+'" id="m'+c.id+'">';
-      c.mods.forEach((m,mi)=>{const d=done.has(c.id);h+='<div class="mod-r"><div class="mod-n'+(d?' dn':'')+'">'+(d?'&#10003;':(mi+1))+'</div><div class="mod-nm">'+m+'</div><div class="mod-d">'+Math.floor(Math.random()*15+8)+' min</div></div>'});
+      c.mods.forEach((m,mi)=>{h+='<div class="mod-r"><div class="mod-n">'+(mi+1)+'</div><div class="mod-nm">'+m+'</div><div class="mod-d">'+Math.floor(Math.random()*15+8)+' min</div></div>'});
       h+='</div>';
     });
     h+='</div></div></div></div>';
   });
   el.innerHTML=h;
+
+  // Render bottom instructors section
+  const allMentorIdxs=new Set();
+  D.forEach(b=>b.mentors.forEach(mi=>allMentorIdxs.add(mi)));
+  let ih='';
+  allMentorIdxs.forEach(mi=>{
+    const m=MENTORS[mi];
+    ih+='<div class="instr-card"><div class="instr-av">'+m.ini+'</div><div><div class="instr-nm">'+m.name+'</div><div class="instr-tt">'+m.role+'</div><div class="instr-stats"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rat">'+m.rating+'</span><span>&middot; '+m.learners+' learners</span></div></div></div>';
+  });
+  document.getElementById('instrGrid').innerHTML=ih;
 }
 
 function togB(i){openB=openB===i?-1:i;openC=-1;render()}
 function cClick(e,el,id,s,bi){
-  if(e.target.classList.contains('mk-btn')) return;
   if(s==='locked'){
     document.querySelectorAll('.lk-tip').forEach(t=>t.remove());
     const t=document.createElement('div');t.className='lk-tip';
     if(viewMode==='level' && !purchasedLevels.has(bi)){
       t.textContent='Purchase this level to unlock all courses.';
     } else {
-      t.textContent='Complete the previous course to unlock this one.';
+      t.textContent='Enroll to unlock this course.';
     }
     el.parentNode.insertBefore(t,el.nextSibling);
     setTimeout(()=>t.classList.add('fade'),2000);setTimeout(()=>t.remove(),2500);
     return;
   }
-  if(s==='free'||s==='active'||s==='completed'){
-    // open course link for enrolled/level users, show modules for guest
-    if(viewMode!=='guest'){
-      window.open('https://upstox.com/uplearn/courses/pre-recorded-options-trading-course-10-june/','_blank');
-      return;
-    }
+  // Free course or active course — clicking opens the course dashboard
+  if(s==='free'||s==='active'){
+    window.open(COURSE_URL,'_blank');
+    return;
   }
   openC=openC===id?-1:id;render();
 }
-function mkDone(e,id){e.stopPropagation();done.add(id);openC=-1;render()}
 function buyLevel(e,bi){
   e.stopPropagation();
   purchasedLevels.add(bi);
