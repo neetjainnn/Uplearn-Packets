@@ -26,8 +26,10 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .nav-links a{font-size:14px;font-weight:500;color:var(--g5);text-decoration:none;padding:8px 16px;border-radius:8px;transition:all .15s}
 .nav-links a:hover{background:var(--g1);color:var(--g9)}
 .nav-links a.on{background:var(--p0);color:var(--p6)}
+.nav-right{display:flex;align-items:center;gap:8px}
 .toggle-btn{background:var(--p0);color:var(--p6);font-size:13px;font-weight:600;padding:8px 18px;border-radius:20px;border:1px solid var(--p1);cursor:pointer;font-family:inherit;transition:all .2s}
 .toggle-btn:hover{background:var(--p1)}
+.toggle-btn.active{background:var(--p5);color:var(--w);border-color:var(--p5)}
 
 /* HERO */
 .hero{padding:64px 48px 56px;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--p8) 0%,var(--p9) 50%,#0c0618 100%)}
@@ -44,7 +46,7 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .hero-stat-num{font-size:24px;font-weight:700;color:var(--w)}
 .hero-stat-label{font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-.btn-p{background:var(--p5);color:var(--w);border:none;padding:14px 32px;border-radius:10px;font-weight:600;font-size:15px;font-family:inherit;cursor:pointer;transition:background .2s}
+.btn-p{background:var(--p5);color:var(--w);border:none;padding:14px 32px;border-radius:10px;font-weight:600;font-size:15px;font-family:inherit;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .btn-p:hover{background:var(--p6)}
 .btn-g{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1);padding:14px 32px;border-radius:10px;font-weight:500;font-size:15px;font-family:inherit;cursor:pointer;transition:all .2s}
 .btn-g:hover{background:rgba(255,255,255,0.1)}
@@ -53,17 +55,6 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .hero-vid-card .embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
 .hero-vid-card .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .hero-vid-meta{display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;color:rgba(255,255,255,0.4);border-top:1px solid rgba(124,58,237,0.1)}
-
-/* PROGRESS (enrolled) */
-.prog{max-width:640px;margin:0 auto}
-.prog-row{display:flex;gap:20px;margin-bottom:20px}
-.prog-card{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;text-align:center}
-.prog-val{font-size:32px;font-weight:800;line-height:1}
-.prog-val.purple{color:var(--p3)}.prog-val.teal{color:var(--t3)}.prog-val.amber{color:#FBBF24}
-.prog-lbl{font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px}
-.prog-bar{background:rgba(255,255,255,0.07);border-radius:6px;height:8px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--p5),var(--t4));border-radius:6px;width:18%;transition:width .6s}
-.prog-meta{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:rgba(255,255,255,0.3)}
 
 /* CONTENT AREA */
 .content{max-width:1260px;margin:0 auto;padding:0 48px}
@@ -113,13 +104,18 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .mc-badge.active{background:var(--p0);color:var(--p6)}
 .mc-badge.completed{background:var(--ok0);color:var(--ok)}
 .mc-badge.locked{background:var(--g1);color:var(--g4)}
+.mc-badge.purchased{background:var(--p0);color:var(--p6)}
 .mc-meta{font-size:15px;color:var(--g5);margin-bottom:14px}
 .mc-meta svg{vertical-align:middle;margin-right:4px}
+.mc-extras{display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap}
 .mc-instr{display:flex;align-items:center;gap:10px}
 .mc-av{width:36px;height:36px;border-radius:50%;background:var(--p0);border:2px solid var(--p1);display:flex;align-items:center;justify-content:center;color:var(--p5);font-size:12px;font-weight:700;overflow:hidden}
 .mc-av img{width:100%;height:100%;object-fit:cover}
 .mc-iname{font-size:14px;color:var(--g7);font-weight:500}
 .mc-irole{font-size:12px;color:var(--g4)}
+.mc-cert{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--warn);background:#FEF3C7;padding:4px 12px;border-radius:20px}
+.mc-price-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--p6);background:var(--p0);padding:6px 14px;border-radius:10px;border:1px solid var(--p1);cursor:pointer;transition:all .2s}
+.mc-price-tag:hover{background:var(--p1)}
 
 /* Right: What you'll learn */
 .mc-r{width:340px;min-width:280px}
@@ -172,10 +168,12 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .rat{font-weight:700;color:var(--g9)}
 
 /* CTA */
-.cta{background:var(--p0);border:1px solid var(--p1);border-radius:16px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cta{background:var(--g0);border:1px solid var(--g2);border-radius:16px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .cta-t{font-size:22px;font-weight:700;color:var(--g9)}.cta-s{font-size:14px;color:var(--g5);margin-top:4px}
 .cta-r{display:flex;align-items:center;gap:20px}
 .cta-p{font-size:32px;font-weight:800;color:var(--p6)}.cta-ps{font-size:13px;color:var(--g4)}
+.btn-p-light{background:var(--p5);color:var(--w);border:none;padding:14px 32px;border-radius:10px;font-weight:600;font-size:15px;font-family:inherit;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-p-light:hover{background:var(--p6)}
 
 /* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:none;align-items:center;justify-content:center}
@@ -185,10 +183,26 @@ body{font-family:'Inter',sans-serif;background:var(--w);color:var(--g9);font-siz
 .modal-x:hover{background:rgba(255,255,255,0.2)}
 .modal-box iframe{width:100%;height:380px;border:none;display:block;border-radius:0 0 16px 16px}
 
-/* Guest/Enrolled */
-.gu{display:block}.en{display:none}
-body.enrolled .gu{display:none!important}
-body.enrolled .en{display:block!important}
+/* FOOTER */
+.footer{background:var(--g0);border-top:1px solid var(--g2);padding:32px 48px;margin-top:48px}
+.footer-inner{max-width:1260px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:13px;color:var(--g4)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:13px;color:var(--g5);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--p5)}
+
+/* View states — hide/show */
+.v-guest{display:block}.v-enrolled{display:none}.v-level{display:none}
+body.enrolled .v-guest{display:none!important}
+body.enrolled .v-enrolled{display:block!important}
+body.enrolled .v-level{display:none!important}
+body.level-purchase .v-guest{display:none!important}
+body.level-purchase .v-enrolled{display:none!important}
+body.level-purchase .v-level{display:block!important}
+/* enrolled-or-level: show in both enrolled and level */
+.v-access{display:none}
+body.enrolled .v-access{display:block!important}
+body.level-purchase .v-access{display:block!important}
 
 /* MOBILE */
 @media(max-width:800px){
@@ -208,9 +222,12 @@ body.enrolled .en{display:block!important}
   .cta{flex-direction:column;align-items:flex-start}
   .cta-r{width:100%;justify-content:space-between}
   .instr{flex-direction:column;align-items:flex-start}
-  .prog-row{flex-wrap:wrap}.prog-card{min-width:120px}
   .cd-row{padding:14px 20px}
   .mod-list{padding-left:60px}
+  .footer{padding:24px 16px}
+  .footer-inner{flex-direction:column;gap:12px;text-align:center}
+  .nav-right{gap:4px}
+  .toggle-btn{font-size:11px;padding:6px 12px}
 }
 </style>
 </head>
@@ -223,13 +240,18 @@ body.enrolled .en{display:block!important}
       <a href="#">Discover</a><a href="#" class="on">Courses</a><a href="#">Webinars</a><a href="#">My Courses</a>
     </div>
   </div>
-  <button class="toggle-btn" id="tog" onclick="toggleE()">View as: Guest</button>
+  <div class="nav-right">
+    <button class="toggle-btn active" id="togGuest" onclick="setView('guest')">Guest</button>
+    <button class="toggle-btn" id="togEnrolled" onclick="setView('enrolled')">Enrolled</button>
+    <button class="toggle-btn" id="togLevel" onclick="setView('level')">Level Purchase</button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="gu">
+    <!-- GUEST HERO -->
+    <div class="v-guest">
       <div class="hero-split">
         <div class="hero-text">
           <div class="hero-eyebrow">
@@ -242,10 +264,10 @@ body.enrolled .en{display:block!important}
             <div class="hero-stat"><div class="hero-stat-num">14</div><div class="hero-stat-label">Courses</div></div>
             <div class="hero-stat"><div class="hero-stat-num">40h+</div><div class="hero-stat-label">Content</div></div>
             <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Levels</div></div>
-            <div class="hero-stat"><div class="hero-stat-num">1</div><div class="hero-stat-label">Free to start</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Free courses</div></div>
           </div>
           <div class="hero-cta">
-            <button class="btn-p">Enroll — &#8377;1,499</button>
+            <button class="btn-p">Enroll Full Packet — &#8377;1,499</button>
             <button class="btn-g" onclick="document.getElementById('cards').scrollIntoView({behavior:'smooth'})">Preview path &#8595;</button>
           </div>
         </div>
@@ -258,22 +280,37 @@ body.enrolled .en{display:block!important}
       </div>
     </div>
 
-    <div class="en" style="text-align:center">
+    <!-- ENROLLED HERO (full packet) -->
+    <div class="v-enrolled" style="text-align:center">
       <div class="hero-eyebrow" style="margin-bottom:24px">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
         Learning Packet &middot; Technical Analysis
       </div>
       <h1 style="text-align:center;margin:0 auto 12px;max-width:600px">Master Technical Analysis</h1>
-      <p class="hero-sub" style="text-align:center;margin:0 auto 36px">Your progress so far</p>
-      <div class="prog">
-        <div class="prog-row">
-          <div class="prog-card"><div class="prog-val amber">7</div><div class="prog-lbl">Day Streak</div></div>
-          <div class="prog-card"><div class="prog-val purple">18%</div><div class="prog-lbl">Completed</div></div>
-          <div class="prog-card"><div class="prog-val teal">7.2h</div><div class="prog-lbl">of 40h watched</div></div>
-          <div class="prog-card"><div class="prog-val">3</div><div class="prog-lbl">Courses Done</div></div>
-        </div>
-        <div class="prog-bar"><div class="prog-fill"></div></div>
-        <div class="prog-meta"><span>3 of 14 courses completed</span><span>18%</span></div>
+      <p class="hero-sub" style="text-align:center;margin:0 auto 28px">You have full access to all 5 levels, 14 courses and 40+ hours of content.</p>
+      <div class="hero-cta" style="justify-content:center">
+        <a href="https://upstox.com/uplearn/courses/pre-recorded-options-trading-course-10-june/" class="btn-p" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Go to Dashboard
+        </a>
+        <button class="btn-g" onclick="document.getElementById('cards').scrollIntoView({behavior:'smooth'})">View courses &#8595;</button>
+      </div>
+    </div>
+
+    <!-- LEVEL PURCHASE HERO -->
+    <div class="v-level" style="text-align:center">
+      <div class="hero-eyebrow" style="margin-bottom:24px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        Learning Packet &middot; Technical Analysis
+      </div>
+      <h1 style="text-align:center;margin:0 auto 12px;max-width:700px">Master Technical Analysis</h1>
+      <p class="hero-sub" style="text-align:center;margin:0 auto 28px">You've purchased <strong style="color:var(--p3)" id="purchasedLevelsText">Level 1 & Level 2</strong>. Access your courses or buy more levels below.</p>
+      <div class="hero-cta" style="justify-content:center">
+        <a href="https://upstox.com/uplearn/courses/pre-recorded-options-trading-course-10-june/" class="btn-p" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Access Now
+        </a>
+        <button class="btn-g" onclick="document.getElementById('cards').scrollIntoView({behavior:'smooth'})">View all levels &#8595;</button>
       </div>
     </div>
   </div>
@@ -281,8 +318,8 @@ body.enrolled .en{display:block!important}
 
 <div class="content">
 
-  <!-- OUTCOMES (guest) -->
-  <section class="outcomes gu">
+  <!-- OUTCOMES (guest only) -->
+  <section class="outcomes v-guest">
     <h2>What you'll be able to do</h2>
     <div class="outcomes-grid">
       <div class="oi"><div class="oi-dot">&#10003;</div><div class="oi-txt">Read any candlestick chart confidently</div></div>
@@ -314,17 +351,27 @@ body.enrolled .en{display:block!important}
     </div>
   </section>
 
-  <!-- CTA (guest) -->
-  <section class="cta gu">
-    <div><div class="cta-t">Technical Analysis Packet</div><div class="cta-s">14 courses &middot; 5 buckets &middot; Completion certificate</div></div>
+  <!-- CTA (guest only) -->
+  <section class="cta v-guest">
+    <div><div class="cta-t">Technical Analysis Packet</div><div class="cta-s">14 courses &middot; 5 levels &middot; Certificate on completion</div></div>
     <div class="cta-r">
-      <div style="text-align:right"><div class="cta-p">&#8377;1,499</div><div class="cta-ps">one-time</div></div>
-      <button class="btn-p">Enroll now</button>
+      <div style="text-align:right"><div class="cta-p">&#8377;1,499</div><div class="cta-ps">one-time &middot; full packet</div></div>
+      <button class="btn-p-light">Enroll now</button>
     </div>
   </section>
 </div>
 
-<div style="height:60px"></div>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-copy">&copy; 2026 Upstox &middot; UpLearn. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Support</a>
+    </div>
+  </div>
+</footer>
 
 <script>
 const IMGS = [
@@ -335,73 +382,168 @@ const IMGS = [
   "https://assets.upstox.com/content/assets/images/course_image/va_pre_rec.webp"
 ];
 
+const LEVEL_PRICES = [299, 399, 449, 399, 349];
+
 const D=[
-  {name:"Reading the Market",lvl:"Beginner",hrs:"8 hrs",cnt:3,img:IMGS[0],
+  {name:"Reading the Market",lvl:"Beginner",hrs:"8 hrs",cnt:3,img:IMGS[0],price:LEVEL_PRICES[0],
    learn:["Different types of price charts","How candlesticks are formed","Identifying key support & resistance","Reading volume to confirm moves","Spotting market structure shifts"],
    courses:[
      {id:1,nm:"Candlesticks & Chart Types",hrs:"2.5 hrs",st:"free",sub:"5 modules \u00b7 Free to start",mods:["What is Technical Analysis?","Types of price charts","Anatomy of a candlestick","Bullish vs bearish candles","Reading chart timeframes"]},
      {id:2,nm:"Support, Resistance & Trends",hrs:"2.5 hrs",st:"locked",sub:"Unlock after Course 1",mods:["Drawing support zones","Drawing resistance zones","Trendlines & channels","Breakout vs fakeout","Real chart walkthroughs"]},
      {id:3,nm:"Volume & Market Structure",hrs:"3 hrs",st:"locked",sub:"Unlock after Course 2",mods:["Why volume matters","Volume spikes & climax","Market structure basics","Higher highs & lower lows","Putting it all together"]}
    ]},
-  {name:"Chart Patterns",lvl:"Intermediate",hrs:"9 hrs",cnt:3,img:IMGS[1],
+  {name:"Chart Patterns",lvl:"Intermediate",hrs:"9 hrs",cnt:3,img:IMGS[1],price:LEVEL_PRICES[1],
    learn:["Head & shoulders reversal signals","Double tops and double bottoms","Trading flags, pennants and wedges","Candlestick pattern psychology","Entry, exit and stop-loss placement"],
    courses:[
-     {id:4,nm:"Reversal Patterns",hrs:"3 hrs",st:"locked",sub:"Unlock after Bucket 1",mods:["Head & shoulders","Inverse head & shoulders","Double top","Double bottom","Rounding bottom"]},
+     {id:4,nm:"Reversal Patterns",hrs:"3 hrs",st:"free",sub:"3 modules \u00b7 Free to start",mods:["Head & shoulders","Inverse head & shoulders","Double top","Double bottom","Rounding bottom"]},
      {id:5,nm:"Continuation Patterns",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Bull flags","Bear flags","Pennants","Ascending triangles","Symmetrical triangles"]},
      {id:6,nm:"Candlestick Pattern Setups",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Hammer & hanging man","Engulfing patterns","Doji variations","Morning & evening star","Trading setups with candles"]}
    ]},
-  {name:"Indicators & Oscillators",lvl:"Intermediate",hrs:"10 hrs",cnt:3,img:IMGS[2],
+  {name:"Indicators & Oscillators",lvl:"Intermediate",hrs:"10 hrs",cnt:3,img:IMGS[2],price:LEVEL_PRICES[2],
    learn:["Plotting and using moving averages","How RSI measures momentum","MACD crossover strategies","Bollinger Bands for volatility","Combining indicators for confirmation"],
    courses:[
-     {id:7,nm:"Moving Averages: SMA, EMA, WMA",hrs:"3.5 hrs",st:"locked",sub:"Locked",mods:["Simple moving average","Exponential moving average","Weighted MA","Crossover strategies","MA as dynamic support/resistance"]},
+     {id:7,nm:"Moving Averages: SMA, EMA, WMA",hrs:"3.5 hrs",st:"free",sub:"5 modules \u00b7 Free to start",mods:["Simple moving average","Exponential moving average","Weighted MA","Crossover strategies","MA as dynamic support/resistance"]},
      {id:8,nm:"RSI & MACD in Depth",hrs:"3.5 hrs",st:"locked",sub:"Locked",mods:["RSI calculation & zones","RSI divergence","MACD histogram","Signal line crossovers","Combining RSI + MACD"]},
      {id:9,nm:"Bollinger Bands & ATR",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Bollinger Band basics","Squeeze strategy","Band walks","ATR for volatility","Position sizing with ATR"]}
    ]},
-  {name:"Trading Systems & Strategy",lvl:"Advanced",hrs:"8 hrs",cnt:3,img:IMGS[3],
+  {name:"Trading Systems & Strategy",lvl:"Advanced",hrs:"8 hrs",cnt:3,img:IMGS[3],price:LEVEL_PRICES[3],
    learn:["Building a rule-based trading system","Backtesting strategies on historical data","Position sizing and risk management","Creating trade checklists","Managing trades with trailing stops"],
    courses:[
-     {id:10,nm:"Building a Rule-Based System",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Why rules matter","Defining entry criteria","Defining exit criteria","Journaling trades","Your first system"]},
+     {id:10,nm:"Building a Rule-Based System",hrs:"3 hrs",st:"free",sub:"5 modules \u00b7 Free to start",mods:["Why rules matter","Defining entry criteria","Defining exit criteria","Journaling trades","Your first system"]},
      {id:11,nm:"Backtesting on Real Charts",hrs:"2.5 hrs",st:"locked",sub:"Locked",mods:["What is backtesting?","Manual backtesting method","Tracking win rate","Expectancy calculation","Iterating your system"]},
      {id:12,nm:"Risk & Position Sizing",hrs:"2.5 hrs",st:"locked",sub:"Locked",mods:["Risk per trade","Position sizing formulas","Risk-reward ratio","Portfolio heat","Protecting capital"]}
    ]},
-  {name:"Live Market Application",lvl:"Expert",hrs:"6 hrs",cnt:2,img:IMGS[4],
+  {name:"Live Market Application",lvl:"Expert",hrs:"6 hrs",cnt:2,img:IMGS[4],price:LEVEL_PRICES[4],
    learn:["Reading intraday price action live","How news & macro events affect charts","Building a pre-market routine","Adapting strategy to conditions"],
    courses:[
-     {id:13,nm:"Reading Intraday Price Action",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Opening range breakout","VWAP trading","Intraday S/R levels","Scalping setups","End-of-day review"]},
+     {id:13,nm:"Reading Intraday Price Action",hrs:"3 hrs",st:"free",sub:"2 modules \u00b7 Free to start",mods:["Opening range breakout","VWAP trading","Intraday S/R levels","Scalping setups","End-of-day review"]},
      {id:14,nm:"TA Meets Macro: News & Events",hrs:"3 hrs",st:"locked",sub:"Locked",mods:["Earnings season trading","RBI policy impact","Global cues & gaps","Event-driven setups","Putting it all together"]}
    ]}
 ];
 
-let enrolled=false,done=new Set(),openB=0,openC=-1;
-function toggleE(){enrolled=!enrolled;done=enrolled?new Set([1,2,3]):new Set();openC=-1;document.getElementById('tog').textContent=enrolled?'View as: Enrolled':'View as: Guest';document.body.classList.toggle('enrolled',enrolled);render()}
-function cs(c,bi){if(!enrolled)return c.st;if(done.has(c.id))return"completed";const b=D[bi],ci=b.courses.indexOf(c);const prev=ci===0?(bi===0||D[bi-1].courses.every(x=>done.has(x.id))):done.has(b.courses[ci-1].id);return prev?"active":"locked"}
-function bs(bi){if(!enrolled)return bi===0?"free":"locked";const b=D[bi];if(b.courses.every(c=>done.has(c.id)))return"completed";if(b.courses.some(c=>cs(c,bi)==="active"||cs(c,bi)==="completed"))return"active";return"locked"}
-function bl(s){return s==="free"?"1 Free":s==="active"?"In Progress":s==="completed"?"Completed":"Locked"}
-function tl(s){return s==="free"?"Free":s==="active"?"Continue \u2192":s==="completed"?"Done":"Locked"}
-function tc(s){return s==="active"?"ac":s==="completed"?"done":s==="free"?"free":"lk"}
-function ic(s){return s==="active"?"ac":s==="completed"?"done":s==="free"?"free":"lk"}
-function iv(s){
-  if(s==="free"||s==="active")return'<svg width="16" height="16" viewBox="0 0 18 18" fill="none"><polygon points="5,2 16,9 5,16" fill="currentColor"/></svg>';
-  if(s==="completed")return'<span style="font-weight:700;font-size:14px">&#10003;</span>';
-  return'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>';
+// State
+let viewMode='guest'; // 'guest' | 'enrolled' | 'level'
+let done=new Set();
+let purchasedLevels=new Set([0,1]); // dummy: levels 0,1 purchased for level-purchase view
+let openB=0, openC=-1;
+
+function setView(mode){
+  viewMode=mode;
+  document.body.classList.remove('enrolled','level-purchase');
+  document.getElementById('togGuest').classList.remove('active');
+  document.getElementById('togEnrolled').classList.remove('active');
+  document.getElementById('togLevel').classList.remove('active');
+
+  if(mode==='enrolled'){
+    document.body.classList.add('enrolled');
+    document.getElementById('togEnrolled').classList.add('active');
+    done=new Set([1,2,3]);
+  } else if(mode==='level'){
+    document.body.classList.add('level-purchase');
+    document.getElementById('togLevel').classList.add('active');
+    done=new Set([1,2,3]);
+    purchasedLevels=new Set([0,1]);
+    // Update hero text
+    const names=[];
+    purchasedLevels.forEach(i=>names.push('Level '+(i+1)));
+    document.getElementById('purchasedLevelsText').textContent=names.join(' & ');
+  } else {
+    document.getElementById('togGuest').classList.add('active');
+    done=new Set();
+  }
+  openC=-1;
+  render();
 }
-function st(c,s){if(s==="free")return c.mods.length+" modules \u00b7 Free to start";if(s==="active")return c.mods.length+" modules \u00b7 In progress";if(s==="completed")return c.mods.length+" modules \u00b7 Completed";return c.sub}
+
+function cs(c,bi){
+  if(viewMode==='guest'){
+    // first course of each bucket is free
+    const b=D[bi], ci=b.courses.indexOf(c);
+    return ci===0?'free':'locked';
+  }
+  if(viewMode==='level'){
+    if(!purchasedLevels.has(bi)){
+      // not purchased — first course free, rest locked
+      const b=D[bi], ci=b.courses.indexOf(c);
+      return ci===0?'free':'locked';
+    }
+    // purchased level
+    if(done.has(c.id)) return 'completed';
+    const b=D[bi], ci=b.courses.indexOf(c);
+    const prev=ci===0?true:done.has(b.courses[ci-1].id);
+    return prev?'active':'locked';
+  }
+  // enrolled (full packet)
+  if(done.has(c.id)) return 'completed';
+  const b=D[bi], ci=b.courses.indexOf(c);
+  const prev=ci===0?(bi===0||D[bi-1].courses.every(x=>done.has(x.id))):done.has(b.courses[ci-1].id);
+  return prev?'active':'locked';
+}
+
+function bs(bi){
+  if(viewMode==='guest'){
+    return 'free'; // all levels show as explorable with first course free
+  }
+  if(viewMode==='level'){
+    if(!purchasedLevels.has(bi)) return 'locked';
+    const b=D[bi];
+    if(b.courses.every(c=>done.has(c.id))) return 'completed';
+    if(b.courses.some(c=>cs(c,bi)==='active'||cs(c,bi)==='completed')) return 'active';
+    return 'purchased';
+  }
+  // enrolled
+  const b=D[bi];
+  if(b.courses.every(c=>done.has(c.id))) return 'completed';
+  if(b.courses.some(c=>cs(c,bi)==='active'||cs(c,bi)==='completed')) return 'active';
+  return 'locked';
+}
+
+function bl(s){
+  if(s==='free') return '1 Free';
+  if(s==='active') return 'In Progress';
+  if(s==='completed') return 'Completed';
+  if(s==='purchased') return 'Purchased';
+  return 'Locked';
+}
+function tl(s){return s==='free'?'Free':s==='active'?'Continue \u2192':s==='completed'?'Done':'Locked'}
+function tc(s){return s==='active'?'ac':s==='completed'?'done':s==='free'?'free':'lk'}
+function ic(s){return s==='active'?'ac':s==='completed'?'done':s==='free'?'free':'lk'}
+function iv(s){
+  if(s==='free'||s==='active') return '<svg width="16" height="16" viewBox="0 0 18 18" fill="none"><polygon points="5,2 16,9 5,16" fill="currentColor"/></svg>';
+  if(s==='completed') return '<span style="font-weight:700;font-size:14px">&#10003;</span>';
+  return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>';
+}
+function st(c,s){
+  if(s==='free') return c.mods.length+' modules \u00b7 Free to start';
+  if(s==='active') return c.mods.length+' modules \u00b7 In progress';
+  if(s==='completed') return c.mods.length+' modules \u00b7 Completed';
+  return c.sub;
+}
 
 function render(){
-  const el=document.getElementById('cw');let h='';
+  const el=document.getElementById('cw'); let h='';
   D.forEach((b,bi)=>{
-    const bst=bs(bi),isO=bi===openB,wc=bst==="active"||bst==="free"?"is-a":bst==="completed"?"is-c":"";
+    const bst=bs(bi), isO=bi===openB;
+    const wc=bst==='active'||bst==='free'||bst==='purchased'?'is-a':bst==='completed'?'is-c':'';
     h+='<div class="mc-wrap '+wc+'">';
     h+='<div class="sn">'+(bi+1)+'</div><div class="tl-d"></div>';
-    h+='<div class="mc'+(isO?' open':'')+(bst==="active"||bst==="free"?' is-ac':'')+'">';
+    h+='<div class="mc'+(isO?' open':'')+(bst==='active'||bst==='free'||bst==='purchased'?' is-ac':'')+'">';
     h+='<div class="mc-hd" onclick="togB('+bi+')">';
     h+='<div class="mc-l">';
     h+='<img class="mc-thumb" src="'+b.img+'" alt="'+b.name+'">';
     h+='<div class="mc-info">';
     h+='<div class="mc-trow"><span class="mc-name">'+b.name+'</span><span class="mc-badge '+bst+'">'+bl(bst)+'</span></div>';
     h+='<div class="mc-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> '+b.cnt+' courses &middot; '+b.hrs+' &middot; '+b.lvl+'</div>';
+    h+='<div class="mc-extras">';
     h+='<div class="mc-instr"><div class="mc-av">MB</div><div><div class="mc-iname">Milan Bavishi</div><div class="mc-irole">Market Technician, CMT</div></div></div>';
-    h+='</div></div>';
+    h+='<div class="mc-cert"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-3 3 1-4-3-3h4L12 7l1 4h4l-3 3 1 4z"/></svg> Certificate</div>';
+    // Show price tag for guest view or unpurchased levels in level-purchase view
+    if(viewMode==='guest'){
+      h+='<span class="mc-price-tag">\u20B9'+b.price+' &middot; Buy this level</span>';
+    } else if(viewMode==='level' && !purchasedLevels.has(bi)){
+      h+='<span class="mc-price-tag" onclick="buyLevel(event,'+bi+')">\u20B9'+b.price+' &middot; Buy this level</span>';
+    }
+    h+='</div></div></div>';
     h+='<div class="mc-r"><div class="mc-wyl">What you\'ll learn</div><ul class="mc-ll">';
     b.learn.forEach(l=>{h+='<li><span class="mc-chk">&#10003;</span><span>'+l+'</span></li>'});
     h+='</ul></div>';
@@ -409,9 +551,12 @@ function render(){
     h+='</div>';
     h+='<div class="mc-dd"><div class="mc-dd-in">';
     b.courses.forEach(c=>{
-      const s=cs(c,bi),ok=s!=="locked";
-      h+='<div class="cd-row'+(ok?' ok':'')+'" onclick="cClick(event,this,'+c.id+',\''+s+'\')"><div class="cd-ic '+ic(s)+'">'+iv(s)+'</div><div class="cd-nfo"><div class="cd-nm'+(s==="locked"?' lk':'')+'">'+c.nm+'</div><div class="cd-sub">'+st(c,s)+'</div></div><div class="cd-rt"><span class="cd-tag '+tc(s)+'">'+tl(s)+'</span><span class="cd-dur">'+c.hrs+'</span>';
-      if(enrolled&&s==="active")h+='<button class="mk-btn" onclick="mkDone(event,'+c.id+')">Mark complete</button>';
+      const s=cs(c,bi), ok=s!=='locked';
+      h+='<div class="cd-row'+(ok?' ok':'')+'" onclick="cClick(event,this,'+c.id+',\''+s+'\','+bi+')">';
+      h+='<div class="cd-ic '+ic(s)+'">'+iv(s)+'</div>';
+      h+='<div class="cd-nfo"><div class="cd-nm'+(s==='locked'?' lk':'')+'">'+c.nm+'</div><div class="cd-sub">'+st(c,s)+'</div></div>';
+      h+='<div class="cd-rt"><span class="cd-tag '+tc(s)+'">'+tl(s)+'</span><span class="cd-dur">'+c.hrs+'</span>';
+      if((viewMode==='enrolled'||viewMode==='level')&&s==='active') h+='<button class="mk-btn" onclick="mkDone(event,'+c.id+')">Mark complete</button>';
       h+='</div></div>';
       h+='<div class="mod-list'+(openC===c.id?' show':'')+'" id="m'+c.id+'">';
       c.mods.forEach((m,mi)=>{const d=done.has(c.id);h+='<div class="mod-r"><div class="mod-n'+(d?' dn':'')+'">'+(d?'&#10003;':(mi+1))+'</div><div class="mod-nm">'+m+'</div><div class="mod-d">'+Math.floor(Math.random()*15+8)+' min</div></div>'});
@@ -421,9 +566,39 @@ function render(){
   });
   el.innerHTML=h;
 }
+
 function togB(i){openB=openB===i?-1:i;openC=-1;render()}
-function cClick(e,el,id,s){if(e.target.classList.contains('mk-btn'))return;if(s==="locked"){document.querySelectorAll('.lk-tip').forEach(t=>t.remove());const t=document.createElement('div');t.className='lk-tip';t.textContent='Complete the previous course to unlock this one.';el.parentNode.insertBefore(t,el.nextSibling);setTimeout(()=>t.classList.add('fade'),2000);setTimeout(()=>t.remove(),2500);return}openC=openC===id?-1:id;render()}
+function cClick(e,el,id,s,bi){
+  if(e.target.classList.contains('mk-btn')) return;
+  if(s==='locked'){
+    document.querySelectorAll('.lk-tip').forEach(t=>t.remove());
+    const t=document.createElement('div');t.className='lk-tip';
+    if(viewMode==='level' && !purchasedLevels.has(bi)){
+      t.textContent='Purchase this level to unlock all courses.';
+    } else {
+      t.textContent='Complete the previous course to unlock this one.';
+    }
+    el.parentNode.insertBefore(t,el.nextSibling);
+    setTimeout(()=>t.classList.add('fade'),2000);setTimeout(()=>t.remove(),2500);
+    return;
+  }
+  if(s==='free'||s==='active'||s==='completed'){
+    // open course link for enrolled/level users, show modules for guest
+    if(viewMode!=='guest'){
+      window.open('https://upstox.com/uplearn/courses/pre-recorded-options-trading-course-10-june/','_blank');
+      return;
+    }
+  }
+  openC=openC===id?-1:id;render();
+}
 function mkDone(e,id){e.stopPropagation();done.add(id);openC=-1;render()}
+function buyLevel(e,bi){
+  e.stopPropagation();
+  purchasedLevels.add(bi);
+  const names=[];purchasedLevels.forEach(i=>names.push('Level '+(i+1)));
+  document.getElementById('purchasedLevelsText').textContent=names.join(' & ');
+  render();
+}
 render();
 </script>
 </body>
