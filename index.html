@@ -597,11 +597,7 @@ function cClick(e,el,id,s,bi){
     setTimeout(()=>t.classList.add('fade'),2000);setTimeout(()=>t.remove(),2500);
     return;
   }
-  // Free course or active course — clicking opens the course dashboard
-  if(s==='free'||s==='active'){
-    window.open(COURSE_URL,'_blank');
-    return;
-  }
+  // Toggle modules dropdown for any accessible course
   openC=openC===id?-1:id;render();
 }
 function buyLevel(e,bi){
